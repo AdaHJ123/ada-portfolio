@@ -1,10 +1,10 @@
-﻿import { createRouter, createWebHistory } from "vue-router"
+﻿import { createRouter, createWebHashHistory } from "vue-router"
 import Home from "../pages/Home.vue"
 import MoreWorks from "../pages/MoreWorks.vue"
 import SendEmail from "../pages/SendEmail.vue"
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes: [
     { path: "/", component: Home },
     { path: "/works", name: "MoreWorks", component: MoreWorks },
