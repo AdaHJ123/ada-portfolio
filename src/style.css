@@ -1,4 +1,4 @@
-:root {
+Ôªø:root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -6,9 +6,6 @@
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
-
-  /* color: #f1f1f1;
-  background-color: #000; */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -25,7 +22,6 @@ a {
   text-decoration: inherit;
 }
 a:hover {
-  /* color: #535bf2; */
 
   color: #cfe3ff;
 }
@@ -47,7 +43,7 @@ body {
   background: #000;
   color: #f1f1f1;
   display: block; 
-  overflow-y: scroll;        /* ◊‹ «œ‘ æπˆ∂ØÃıŒª÷√£¨»√∏˜‘™ÀÿøÌ∂»º¥±„‘⁄≤ªÕ¨“≥√Ê“≤ƒ‹±£≥÷“ª÷¬ */
+  overflow-y: scroll;        /* ÊÄªÊòØÊòæÁ§∫ÊªöÂä®Êù°‰ΩçÁΩÆÔºåËÆ©ÂêÑÂÖÉÁ¥†ÂÆΩÂ∫¶Âç≥‰æøÂú®‰∏çÂêåÈ°µÈù¢‰πüËÉΩ‰øùÊåÅ‰∏ÄËá¥ */
 }
 
 h1 {
@@ -158,224 +154,6 @@ button:focus-visible {
 .page-slide-leave-active {
   animation-timing-function: ease-in-out;
 }
-
-/* Project detail layout (aligned with reference) */
-.project-detail {
-  padding-top: 12px;
-}
-
-@media (min-width: 768px) {
-  .project-detail {
-    padding-top: 20px;
-  }
-}
-.portfolio-header {
-  display: flex;
-  margin-bottom: 20px;
-}
-
-.portfolio-close {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 16px;
-  border-radius: 999px;
-  border: 1px solid rgba(138, 180, 255, 0.6);
-  background: linear-gradient(120deg, rgba(138, 180, 255, 0.18), rgba(226, 155, 167, 0.16));
-  color: #d7e6ff;
-  text-decoration: none;
-  font-size: 0.9rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  box-shadow: 0 0 0 1px rgba(138, 180, 255, 0.15), 0 10px 22px rgba(0, 0, 0, 0.45);
-  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
-}
-
-.portfolio-close:hover {
-  color: #ffffff;
-  border-color: rgba(138, 180, 255, 0.9);
-  background: linear-gradient(120deg, rgba(138, 180, 255, 0.28), rgba(226, 155, 167, 0.22));
-  transform: translateY(-1px);
-}
-
-.portfolio-close small {
-  font-size: 0.7rem;
-  letter-spacing: 0.18em;
-}
-
-.close-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  border: 1px solid rgba(138, 180, 255, 0.7);
-  background: rgba(0, 0, 0, 0.35);
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 1;
-}
-
-.close-icon svg {
-  width: 18px;
-  height: 18px;
-}
-
-.portfolio-top {
-  margin: 8px 0 16px;
-}
-
-.portfolio-top h2 {
-  position: relative;
-  top: -56px;
-  margin-bottom: -49px;
-  padding: 16px;
-  background-color: rgba(30, 30, 30, 0.8);
-  font-size: 1.125rem;
-  height: 53px;
-}
-
-@media (min-width: 768px) {
-  .portfolio-top h2 {
-    top: -72px;
-    margin-bottom: -74px;
-    font-size: 2rem;
-    height: 69px;
-  }
-}
-
-.content-placeholder {
-  position: relative;
-  width: 100%;
-  display: block;
-  line-height: 0;
-  background-color: #252525;
-  overflow: hidden;
-}
-
-.content-placeholder video {
-  width: 100%;
-  display: block;
-}
-
-.experience {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin: 0 0 32px;
-}
-
-.job-card {
-  background-color: #1e1e1e;
-  border: none;
-  text-align: left;
-  color: #fff;
-  display: inline-block;
-  padding: 24px;
-  border-radius: 4px;
-  font-size: 1rem;
-  line-height: 1.44;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-@media (min-width: 768px) {
-  .job-card {
-    width: calc(50% - 8px);
-    max-width: calc(50% - 8px);
-    flex: 1 1 calc(50% - 8px);
-    font-size: 1.125rem;
-  }
-}
-
-.job-card h3 {
-  font-size: 1.25rem;
-  margin: 0 0 12px;
-}
-
-@media (min-width: 768px) {
-  .job-card h3 {
-    font-size: 1.5rem;
-  }
-}
-
-.job-card ul {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-
-.job-card li {
-  margin-bottom: 6px;
-}
-
-.job-card p,
-.job-card li {
-  color: #bccce7;
-}
-
-.list-label {
-  color: #e29ba7;
-  margin-right: 6px;
-}
-
-.project-links {
-  margin-top: 12px;
-  display: flex;
-  gap: 16px;
-}
-
-.part {
-  margin: 0 0 32px;
-}
-
-.part-header {
-  display: block;
-  font-size: 1.125rem;
-  margin-bottom: 12px;
-}
-
-@media (min-width: 768px) {
-  .part-header {
-    font-size: 1.5rem;
-  }
-}
-
-.content-placeholder iframe {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border: 0;
-  display: block;
-}
-
-/* Override title overlay so it does not cover video controls */
-.portfolio-top h2 {
-  position: static;
-  top: auto;
-  margin: 0;
-  margin-bottom: 0;
-  padding: 12px 16px;
-  height: auto;
-}
-
-@media (min-width: 768px) {
-  .portfolio-top h2 {
-    margin: 0;
-    padding: 16px;
-    height: auto;
-  }
-}
-
-
-
-
-
-
-
-
 
 
 

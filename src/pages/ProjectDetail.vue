@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="content project-detail">
     <div class="portfolio-header">
       <router-link class="portfolio-close" to="/">
@@ -75,17 +75,78 @@
       </section>
     </div>
 
-    <div class="part">
-      <h3 class="part-header">Introduction</h3>
-      <p>{{ project.descriptionLong || project.summary || "More details coming soon." }}</p>
+    <div v-for="section in project.sections" :key="section.id || section.title" class="part">
+      <h3 v-if="section.title" class="part-header">{{ section.title }}</h3>
+      <div v-if="section.text" class="project-detail-text" v-html="section.text"></div>
+      <div
+        v-if="section.images && section.images.length"
+        :class="['project-detail-gallery', { 'project-detail-gallery--stack': section.layout === 'stack' }]"
+        :data-section="section.dataSection || null"
+      >
+        <!-- 缩略图支持三种可选属性：
+             thumbFit: "contain"     显示完整内容不裁切
+             thumbSize: "narrow"     缩小该图占位（适合竖图/示意图）
+             thumbRatio: "auto"      取消固定比例，避免上下留白 -->
+        <figure
+          v-for="image in section.images"
+          :key="image.src"
+          :class="['project-detail-item', { 'project-detail-item--narrow': image.thumbSize === 'narrow' }]"
+        >
+          <button
+            :class="[
+              'project-detail-thumb',
+              {
+                'project-detail-thumb--contain': image.thumbFit === 'contain',
+                'project-detail-thumb--auto': image.thumbRatio === 'auto',
+              },
+            ]"
+            type="button"
+            @click="openLightbox(image)"
+          >
+            <img :src="image.src" :alt="image.alt || project.title" loading="lazy" />
+          </button>
+          <figcaption class="project-detail-caption">
+            {{ image.alt || project.title }}
+          </figcaption>
+        </figure>
+      </div>
+      <p v-if="section.afterText" class="project-detail-text" v-html="section.afterText"></p>
+      <div v-if="section.afterText2" class="project-detail-text" v-html="section.afterText2"></div>
+      <div v-if="section.youtubeId" class="project-detail-video">
+        <div class="project-detail-video-frame">
+          <iframe
+            :src="`https://www.youtube.com/embed/${section.youtubeId}?rel=0`"
+            :title="section.videoCaption || section.title || 'Project video'"
+            frameborder="0"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <p v-if="section.videoCaption" class="project-detail-caption">
+          {{ section.videoCaption }}
+        </p>
+      </div>
+    </div>
+
+    <div
+      v-if="lightboxImage"
+      class="lightbox"
+      role="dialog"
+      aria-modal="true"
+      @click.self="closeLightbox"
+    >
+      <button class="lightbox-close" type="button" aria-label="Close image" @click="closeLightbox">
+        ×
+      </button>
+      <img :src="lightboxImage.src" :alt="lightboxImage.alt || project.title" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed, onMounted } from "vue"
+import { computed, onBeforeUnmount, onMounted, ref } from "vue"
 import { useRoute, useRouter } from "vue-router"
-import projects from "../data/projects.json"
+import projects from "../data/projects"
 
 const route = useRoute()
 const router = useRouter()
@@ -103,11 +164,21 @@ const defaults = {
   year: "",
   youtubeId: "",
   links: {},
+  sections: [],
 }
 
 const project = computed(() => {
   const found = projects.find((p) => p.slug === route.params.slug)
   if (!found) return defaults
+  const fallbackSections = [
+    {
+      id: "introduction",
+      title: "Introduction",
+      text: found.descriptionLong || found.summary || "",
+      layout: "grid",
+      images: found.introImages || [],
+    },
+  ]
   return {
     ...defaults,
     ...found,
@@ -118,15 +189,43 @@ const project = computed(() => {
     videoWebm: found.videoWebm || "",
     youtubeId: found.youtubeId || "",
     links: found.links || {},
+    sections: found.sections && found.sections.length ? found.sections : fallbackSections,
   }
 })
 
+const lightboxImage = ref(null)
+
+const openLightbox = (image) => {
+  lightboxImage.value = image
+  document.body.style.overflow = "hidden"
+}
+
+const closeLightbox = () => {
+  lightboxImage.value = null
+  document.body.style.overflow = ""
+}
+
+const onKeydown = (event) => {
+  if (event.key === "Escape" && lightboxImage.value) {
+    closeLightbox()
+  }
+}
+
 onMounted(() => {
   window.scrollTo({ top: 0, behavior: "auto" })
+  window.addEventListener("keydown", onKeydown)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener("keydown", onKeydown)
+  document.body.style.overflow = ""
 })
 
 if (!project.value.slug) router.replace("/")
 </script>
+
+<style src="../project-detail-style.css"></style>
+
 
 
 

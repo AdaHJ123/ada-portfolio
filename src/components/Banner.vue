@@ -1,11 +1,6 @@
 ﻿<script setup>
 import profile from "../data/profile.json";
-
-// 邮箱：优先 socials.email，其次 profile.email；生成 mailto 链接
-const email = profile?.socials?.email || profile?.email || "otogihj@outlook.com";
-const mailHref = email
-  ? `mailto:${email}?subject=${encodeURIComponent("Hello " + (profile.name || ""))}&body=${encodeURIComponent("Hi, I'd like to get in touch.")}`
-  : "#";
+import { RouterLink } from "vue-router";
 </script>
 
 <template>
@@ -26,7 +21,7 @@ const mailHref = email
 
       <!-- 副标题 + 地点 -->
       <p class="sub">
-        {{ profile.headline }} ?  {{ profile.location }}
+        {{ profile.headline }} · {{ profile.location }}
       </p>
 
           <!-- 头像 -->
@@ -41,19 +36,15 @@ const mailHref = email
       <!-- 行动按钮：发邮件 -->
       <div class="cta">
 
-         <!-- <a>：一个可以点的链接，整块都是可点区域（包括图标和文字） 
-              v-if：有邮箱才显示这个按钮；如果 email 为空就不渲染，避免出现“死链接”
+         <!-- <a>：一个可以点的链接，整块都是可点区域（包括图标和文字）
               class="mail"：给按钮一个样式钩子，控制外观（圆角、边框、hover 等）。
               aria-label：无障碍文本，读屏软件会念「Send me an email」
               title：鼠标悬停时显示的小提示气泡 -->
-        <a
-          v-if="email"
-          href="/contact"
+        <RouterLink
+          to="/contact"
           class="mail"
           aria-label="Send me an email"
           title="Send me an email"
-          target="_blank"
-          rel="noopener"
         >
           <!-- 信封 SVG（跟随字体大小缩放） -->
           <svg viewBox="0 0 24 24" aria-hidden="true" class="mail__icon">
@@ -63,7 +54,7 @@ const mailHref = email
             />
           </svg>
           <span>Send Email</span>
-        </a>
+        </RouterLink>
         
       </div>
     </div>
@@ -168,6 +159,3 @@ const mailHref = email
   }
 }
 </style>
-
-
-

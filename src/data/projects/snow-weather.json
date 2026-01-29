@@ -1,0 +1,19 @@
+﻿{
+    "slug":  "snow-weather",
+    "title":  "Snow Weather",
+    "year":  2024,
+    "role":  "Gameplay (UE5, C++)",
+    "duration":  "1 week",
+    "tags":  [
+                 "Unreal",
+                 "C++"
+             ],
+    "youtubeId":  "3mrqVRYlJdM",
+    "videoSrc":  "/media/snow.mp4",
+    "poster":  "",
+    "summary":  "Recoil animation, decals, weapon switch, enemy AI tweaks.",
+    "links":  {
+                  "demo":  "",
+                  "github":  ""
+              }
+}

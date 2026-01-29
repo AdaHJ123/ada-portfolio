@@ -1,7 +1,7 @@
 ﻿<script setup>
 import { useRouter } from 'vue-router'
 import ProjectCard from './ProjectCard.vue'
-import projects from '../data/projects.json'
+import projects from '../data/projects'
 
 const router = useRouter()
 const goDetail = (slug) => {
@@ -21,7 +21,7 @@ const goDetail = (slug) => {
         v-bind="p"
         @click="goDetail(p.slug)"
       />
-      <!-- 用 p.slug 做 key，并确保你的 projects.json 每条都有 slug -->
+      <!-- 用 p.slug 做 key，并确保你的项目数据每条都有 slug -->
     </div>
 
     <div class="more-link-row">
