@@ -77,7 +77,15 @@
 
     <div v-for="section in project.sections" :key="section.id || section.title" class="part">
       <h3 v-if="section.title" class="part-header">{{ section.title }}</h3>
-      <div v-if="section.text" class="project-detail-text" v-html="section.text"></div>
+      <!-- section.textVariant = "comment" 时，正文按“注释风格”渲染（可复用到其它项目） -->
+      <div
+        v-if="section.text"
+        :class="[
+          'project-detail-text',
+          { 'project-detail-text--comment': section.textVariant === 'comment' },
+        ]"
+        v-html="section.text"
+      ></div>
       <div
         v-if="section.images && section.images.length"
         :class="['project-detail-gallery', { 'project-detail-gallery--stack': section.layout === 'stack' }]"
@@ -112,6 +120,40 @@
       </div>
       <p v-if="section.afterText" class="project-detail-text" v-html="section.afterText"></p>
       <div v-if="section.afterText2" class="project-detail-text" v-html="section.afterText2"></div>
+      <!-- afterImages：用于在 afterText/afterText2 之后追加图片，可用 afterImagesLayout 控制排版 -->
+      <div
+        v-if="section.afterImages && section.afterImages.length"
+        :class="[
+          'project-detail-gallery',
+          {
+            'project-detail-gallery--stack':
+              (section.afterImagesLayout || 'grid') === 'stack',
+          },
+        ]"
+      >
+        <figure
+          v-for="image in section.afterImages"
+          :key="image.src"
+          :class="['project-detail-item', { 'project-detail-item--narrow': image.thumbSize === 'narrow' }]"
+        >
+          <button
+            :class="[
+              'project-detail-thumb',
+              {
+                'project-detail-thumb--contain': image.thumbFit === 'contain',
+                'project-detail-thumb--auto': image.thumbRatio === 'auto',
+              },
+            ]"
+            type="button"
+            @click="openLightbox(image)"
+          >
+            <img :src="image.src" :alt="image.alt || project.title" loading="lazy" />
+          </button>
+          <figcaption class="project-detail-caption">
+            {{ image.alt || project.title }}
+          </figcaption>
+        </figure>
+      </div>
       <div v-if="section.youtubeId" class="project-detail-video">
         <div class="project-detail-video-frame">
           <iframe

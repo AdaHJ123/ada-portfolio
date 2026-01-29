@@ -178,9 +178,8 @@
   font-size: calc(1rem * var(--project-detail-scale));
 }
 
+/* 详情正文：段落保持首行缩进与间距 */
 .project-detail-text p {
-  text-align: left;
-  text-indent: 2em;
   margin: 0 0 14px;
 }
 
@@ -191,27 +190,48 @@
   text-indent: 2em;
 }
 
-.detail-list-line,
-.detail-list {
-  font-size: inherit;
+/* 注释风格正文：用于 troubleshooting 或其他说明块 */
+.project-detail-text--comment {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  color: #528376;
+  font-style: italic;
+  text-indent: 0;
 }
 
+/* 覆盖 .part p 的首行缩进，保证注释段落不缩进 */
+.project-detail-text--comment p {
+  text-indent: 0;
+}
+
+/* 注释风格里的链接：只影响 troubleshooting/注释块 */
+.project-detail-text.project-detail-text--comment a {
+  color: #528376;
+}
+
+.project-detail-text.project-detail-text--comment a:hover {
+  color: #72a899;
+}
+
+/* 列表容器：继承字号，抵消正文缩进 */
+.detail-list {
+  font-size: inherit;
+  margin: 10px 0 14px 0;
+  text-align: left;
+  padding-left: 2em;
+  text-indent: 0;
+}
+
+/* 列表行：斜体，每条独立一行 */
 .detail-list-line {
   display: block;
   margin: 0 0 10px;
   font-style: italic;
 }
 
+/* 列表编号：固定宽度对齐正文起始位置 */
 .detail-list-num {
   display: inline-block;
   width: 2em;
-}
-
-.detail-list {
-  margin: 10px 0 14px 0;
-  text-align: left;
-  padding-left: 2em;
-  text-indent: 0;
 }
 
 
@@ -243,6 +263,7 @@
   color: #f4d7b2;
 }
 
+
 .project-detail-gallery {
   display: grid;
   gap: 16px;
@@ -258,6 +279,7 @@
     grid-template-columns: 1fr;
   }
 }
+
 
 .project-detail-thumb {
   padding: 0;
